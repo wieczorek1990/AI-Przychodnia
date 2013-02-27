@@ -1,0 +1,44 @@
+<%= form_for(@work_plan) do |f| %>
+  <% if @work_plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@work_plan.errors.count, "error") %> prohibited this work_plan from being saved:</h2>
+
+      <ul>
+      <% @work_plan.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <% if current_user.is_a?(Doctor) %>
+    <div class="field">
+        <%= f.label :clinic %><br />
+        <%= f.collection_select(:clinic_doctor_id, ClinicDoctor.where('doctor_id = ?', current_user.id), :id, :summary_clinic) %>
+    </div>
+  <% elsif current_user.is_a?(Admin) %>
+    <div class="field">
+        <%= f.label :clinic_doctor %><br />
+        <%= f.collection_select(:clinic_doctor_id, ClinicDoctor.all, :id, :summary) %>
+    </div>  
+  <% end %>
+
+  <div class="field">
+    <%= f.label :day %><br />
+    <%= f.select :day, daynames %>
+  </div>
+
+  <div class="field">
+    <%= f.label :start %><br />
+    <%= f.time_select :start, :default => Time.new(0) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end %><br />
+    <%= f.time_select :end, :default => Time.new(0) %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

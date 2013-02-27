@@ -1,0 +1,29 @@
+<h1>Listing work plans</h1>
+
+<table>
+  <tr>
+    <th>Clinic</th>
+    <th>Day</th>
+    <th>Start</th>
+    <th>End</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @doctor_work_plans.each do |work_plan| %>
+  <tr>
+    <td><%= work_plan.clinic_doctor.clinic ? work_plan.clinic_doctor.clinic.name : '-' %></td>
+    <td><%= format_days work_plan.day %></td>
+    <td><%= format_hours work_plan.start %></td>
+    <td><%= format_hours work_plan.end %></td>
+    <td><%= link_to 'Show', work_plan %></td>
+    <td><%= link_to 'Edit', edit_work_plan_path(work_plan) %></td>
+    <td><%= link_to 'Destroy', work_plan, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Work plan', new_work_plan_path %>

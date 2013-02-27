@@ -1,0 +1,20 @@
+<p>
+  <strong>Clinic name:</strong>
+  <%= @clinic_doctor.clinic ? @clinic_doctor.clinic.name : '-' %>
+</p>
+
+
+<p>
+  <strong>Doctor first name:</strong>
+  <%= @clinic_doctor.doctor ? @clinic_doctor.doctor.first_name : '-' %>
+</p>
+
+
+<p>
+  <strong>Doctor last name:</strong>
+  <%= @clinic_doctor.doctor ? @clinic_doctor.doctor.last_name : '-' %>
+</p>
+
+
+<%= link_to 'Edit', edit_clinic_doctor_path(@clinic_doctor) %> |
+<%= link_to 'Back', clinic_doctors_path %>

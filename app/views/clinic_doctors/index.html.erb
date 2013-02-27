@@ -1,0 +1,25 @@
+<h1>Listing clinic doctors</h1>
+
+<table>
+  <tr>
+    <th>Clinic</th>
+    <th>Doctor</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clinic_doctors.each do |clinic_doctor| %>
+  <tr>
+    <td><%= clinic_doctor.clinic ? clinic_doctor.clinic.name : '-' %></td>
+    <td><%= clinic_doctor.doctor ? clinic_doctor.doctor.summary : '-' %></td>
+    <td><%= link_to 'Show', clinic_doctor %></td>
+    <td><%= link_to 'Edit', edit_clinic_doctor_path(clinic_doctor) %></td>
+    <td><%= link_to 'Destroy', clinic_doctor, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Clinic doctor', new_clinic_doctor_path %>

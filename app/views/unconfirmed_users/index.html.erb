@@ -1,0 +1,35 @@
+<% unless @unconfirmed_users.empty? %>
+  <table>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Pesel</th>
+      <th>Address</th>
+      <th>Postal code</th>
+      <th>City</th>
+      <th><%# przycisk aktywacji %></th>
+      <th><%# przycisk usuwania %></th>
+    </tr>
+
+    <% @unconfirmed_users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.email%></td>
+        <td><%= user.pesel%></td>
+        <td><%= user.address %></td>
+        <td><%= user.postal_code %></td>
+        <td><%= user.city %></td>
+        <td>
+          <%= button_to "Activate", { :controller => 'unconfirmed_users', :action => 'confirm', :id => user.id }, :method => :put %>
+        </td>
+        <td>
+          <%= button_to "Reject", { :controller => 'unconfirmed_users', :action => 'destroy', :id => user.id }, { :method => :delete, :confirm => "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <b>There are no unconfirmed users.</b>
+<% end %>

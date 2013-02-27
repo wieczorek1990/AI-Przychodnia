@@ -1,0 +1,36 @@
+<h1>Listing work_plans</h1>
+
+<table>
+  <tr>
+    <th>Clinic</th>
+    <th>Doctor</th>
+    <th>Day</th>
+    <th>Start</th>
+    <th>End</th>
+    <th></th>
+    <% unless current_user.is_a?(Patient) %>
+      <th></th>
+      <th></th>
+    <% end %>
+  </tr>
+
+<% @work_plans.each do |work_plan| %>
+  <tr>
+    <td><%= work_plan.clinic_doctor.clinic ? work_plan.clinic_doctor.clinic.name : '-' %></td>
+    <td><%= work_plan.clinic_doctor.doctor ? work_plan.clinic_doctor.doctor.summary : '-' %></td>
+    <td><%= format_days work_plan.day %></td>
+    <td><%= format_hours work_plan.start.in_time_zone %></td>
+    <td><%= format_hours work_plan.end.in_time_zone %></td>
+    <td><%= link_to 'Show', work_plan %></td>
+    <% unless current_user.is_a?(Patient) %>
+      <td><%= link_to 'Edit', edit_work_plan_path(work_plan) %></td>
+      <td><%= link_to 'Destroy', work_plan, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<% unless current_user.is_a?(Patient) %>
+<br />
+<%= link_to 'New Work plan', new_work_plan_path %>
+<% end %>

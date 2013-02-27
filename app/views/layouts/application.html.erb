@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clinic</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+   <!-- Begin Wrapper -->
+  <div id="wrapper">
+  
+    <!-- Begin Header -->
+    <div id="header">
+      <h1>Clinic</h1>
+    </div>
+    <!-- End Header -->
+    
+    <!-- Begin Navigation -->
+    <div id="navigation">
+      <%= link_to "Main site", :root %>
+      <%= render 'devise/menu/login_items' %>
+      <%= render 'devise/menu/registration_items' %>
+    </div>
+	  <!-- End Navigation -->
+
+    <!-- Begin Faux Columns -->
+    <div id="faux">
+		
+      <!-- Begin Left Column -->
+      <div id="leftcolumn">
+
+        <% if user_signed_in? %>
+          <%= "Logged as #{current_user.type}" %>
+          <br>
+          <%= "Welcome, #{current_user.first_name}!" %>
+        <% else %>
+          <%= "Welcome, stranger!" %>
+        <% end %>
+
+      <br /><br />
+
+      <p id="notice", class="notice">
+        <%= notice %>
+      </p>
+
+      <p id="alert", class="alert">
+        <%= alert %>
+      </p>
+       
+      </div>
+      <!-- End Left Column -->
+      
+      <!-- Begin Right Column -->
+      <div id="rightcolumn">
+             
+        <% if flash[:error] %>
+          <div id="error_explanation">
+                <h2><%= pluralize(flash.count, "error") %> happened:</h2>
+            <ul>
+              <li><%= flash[:error] %></li>
+            </ul>
+          </div>
+        <% end %>
+        
+        <%= yield %>
+        
+        <div class="clear"></div>
+
+      </div>
+      <!-- End Right Column -->
+
+      <div class="clear"></div>
+			   
+    </div>	   
+    <!-- End Faux Columns --> 
+    
+  </div>
+  <!-- End Wrapper -->
+</body>
+</html>

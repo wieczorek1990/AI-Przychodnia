@@ -1,0 +1,68 @@
+<h1>Listing available appointments</h1>
+
+<table>
+  <tr>
+    <th>Clinic</th>
+    <th>Doctor</th>
+    <th>Date</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Available?</th>
+    <th></th>
+  </tr>
+
+<% last = nil %>
+<% @available_appointments.each do |appointment| %>
+  <% current = appointment[AvailableAppointmentsHelper::APPOINTMENT] %>
+  <% available = appointment[AvailableAppointmentsHelper::AVAILABLE] %>
+  <% print_clinic = false %>
+  <% print_doctor = false %>
+  <% print_date = false %>
+  <% unless last.nil? %>
+    <% unless last.clinic_doctor.clinic.name == current.clinic_doctor.clinic.name %>
+      <% print_clinic = true %>
+    <% end %>
+    <% unless last.clinic_doctor.doctor.summary == current.clinic_doctor.doctor.summary %>
+      <% print_doctor = true %>
+    <% end %>
+    <% unless last.date == current.date %>
+      <% print_date = true %>
+    <% end %>
+  <% else %>
+    <% print_clinic = true %>
+    <% print_doctor = true %>
+    <% print_date = true %>
+  <% end %>
+  
+  <tr>
+    <td><%= print_clinic ? current.clinic_doctor.clinic.name : nil %></td>
+    <td><%= print_doctor ? current.clinic_doctor.doctor.summary : nil %></td>
+    <td><%= print_date ? format_date(current.date) : nil %></td>
+    <td><%= format_hours current.start %></td>
+    <td><%= format_hours current.end %></td>
+    <td><%= available ? 'True' : 'False' %></td>
+    <td>
+      <% if available %>
+        <%= form_for(current) do |f| %>
+          <div class="field">
+            <%= f.hidden_field :clinic_doctor_id, :value => current.clinic_doctor_id %>
+          </div>
+          <div style="display: none;">
+            <div class="field">
+              <%= f.date_select :date, :default => current.date %>
+            </div>
+            <div class="field">
+              <%= f.time_select :start, :default => current.start %>
+            </div>
+          </div>
+          <div class="actions">
+            <%= f.submit %>
+          </div>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  
+  <% last = current %>
+<% end %>
+</table>

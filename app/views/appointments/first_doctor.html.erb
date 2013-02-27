@@ -1,0 +1,31 @@
+<h1>First appointment with a doctor</h1>
+
+<%= form_for(@doctor, :url => first_doctor_create_appointments_path) do |f| %>
+  <% if @doctor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@doctor.errors.count, "error") %> prohibited this doctor from being processed:</h2>
+
+      <ul>
+      <% @doctor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+      <%= f.label :doctor %><br />
+      <%= f.collection_select(:id, Doctor.all, :id, :summary) %>
+  </div>
+  
+  <div class="field">
+    <%= label :date, :date %><br />
+    <%= date_select :date, :date %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Find'%>
+  </div>
+<% end %>
+
+<%= link_to 'Back', appointments_path %>

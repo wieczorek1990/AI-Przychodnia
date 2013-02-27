@@ -1,0 +1,10 @@
+<!-- Nie działa razem z edit -->
+<div class="field">
+  <%= label nil, :clinic %><br />
+  <%= collection_select(:clinic_doctor, :clinic_id, Clinic.all, :id, :summary) %>
+</div>
+
+<div class="field" id="appointment_doctors">
+  <%= render :partial => 'doctors'%> <!--, :locals => {:f => f} -->
+</div>
+#return render :text => DateTime.new(0).to_formatted_s(:rfc822) 

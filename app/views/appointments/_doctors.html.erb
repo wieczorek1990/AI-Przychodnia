@@ -1,0 +1,10 @@
+<%= label :appointment, :doctor %><br />
+<!--
+<%= debug doctors %>
+<%= debug @appointment %>
+-->
+<% unless doctors.nil? %>
+  <%= collection_select(:appointment, :clinic_doctor_id, doctors, :id, :summary_doctor) %>
+<% else %>
+  <%= collection_select(:appointment, :clinic_doctor_id, [], :id, :summary_doctor) %>
+<% end %>
