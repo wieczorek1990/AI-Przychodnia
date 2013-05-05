@@ -6,7 +6,18 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'pry'
 
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem "faker"
+  gem "capybara"
+  gem "database_cleaner"
+  gem "launchy"
+  gem 'shoulda-matchers'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
